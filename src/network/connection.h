@@ -220,7 +220,7 @@ private:
 	unsigned char m_Packet[128];  // buffer for incoming packets
 	uint64_t m_PacketNumber = 0;
 
-	int m_ServerPort = 6969;
+	int m_ServerPort = 6970;
 	IPAddress m_ServerHost = IPAddress(255, 255, 255, 255);
 	unsigned long m_LastConnectionAttemptTimestamp;
 	unsigned long m_LastPacketTimestamp;
