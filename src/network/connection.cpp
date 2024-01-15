@@ -689,8 +689,7 @@ void Connection::update() {
 
 			break;
 
-		case PACKET_FEATURE_FLAGS:
-			{
+		case PACKET_FEATURE_FLAGS: {
 				// Packet type (4) + Packet number (8) + flags (len - 12)
 				if (len < 13) {
 					m_Logger.warn("Invalid feature flags packet: too short");
@@ -720,6 +719,7 @@ void Connection::update() {
 					m_Logger.debug("Saved DCD on sensor %d", sensors[i]->getSensorId());
 				}
 			}
+			ledManager.pattern(100, 100, 6);
 			break;
 	}
 }
