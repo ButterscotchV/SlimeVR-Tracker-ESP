@@ -243,7 +243,8 @@ void BNO080Sensor::startCalibration(int calibrationType)
     // that is disabled 30 seconds after startup
 }
 
-void BNO080Sensor::saveCalibration()
+bool BNO080Sensor::saveCalibration()
 {
     imu.saveCalibration();
+    return true;
 }

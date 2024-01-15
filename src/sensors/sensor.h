@@ -61,7 +61,9 @@ public:
     virtual void setAccelerationReady();
     virtual void setFusedRotationReady();
     virtual void startCalibration(int calibrationType){};
-    virtual void saveCalibration(){};
+    virtual bool saveCalibration() {
+        return false;
+    };
     virtual SensorStatus getSensorState();
     virtual void printTemperatureCalibrationState();
     virtual void printDebugTemperatureCalibrationState();
