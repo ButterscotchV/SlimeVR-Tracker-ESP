@@ -710,6 +710,14 @@ void Connection::update() {
 			}
 
 			break;
+
+		case PACKET_SAVE_CALIBRATION:
+			// Save BNO calibration
+			for (int i = 0; i < (int)sensors.size(); i++) {
+				sensors[i]->saveCalibration();
+				m_Logger.debug("Saved DCD on sensor %d", sensors[i]->getSensorId());
+			}
+			break;
 	}
 }
 

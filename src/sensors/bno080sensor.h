@@ -41,6 +41,7 @@ public:
     void motionLoop() override final;
     void sendData() override final;
     void startCalibration(int calibrationType) override final;
+    void saveCalibration() override final;
     SensorStatus getSensorState() override final;
 
 private:
