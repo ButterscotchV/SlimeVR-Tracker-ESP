@@ -690,26 +690,28 @@ void Connection::update() {
 			break;
 
 		case PACKET_FEATURE_FLAGS:
-			// Packet type (4) + Packet number (8) + flags (len - 12)
-			if (len < 13) {
-				m_Logger.warn("Invalid feature flags packet: too short");
+			{
+				// Packet type (4) + Packet number (8) + flags (len - 12)
+				if (len < 13) {
+					m_Logger.warn("Invalid feature flags packet: too short");
+					break;
+				}
+
+				bool hadFlags = m_ServerFeatures.isAvailable();
+
+				uint32_t flagsLength = len - 12;
+				m_ServerFeatures = ServerFeatures::from(&m_Packet[12], flagsLength);
+
+				if (!hadFlags) {
+					#if PACKET_BUNDLING != PACKET_BUNDLING_DISABLED
+						if (m_ServerFeatures.has(ServerFeatures::PROTOCOL_BUNDLE_SUPPORT)) {
+							m_Logger.debug("Server supports packet bundling");
+						}
+					#endif
+				}
+
 				break;
 			}
-
-			bool hadFlags = m_ServerFeatures.isAvailable();
-			
-			uint32_t flagsLength = len - 12;
-			m_ServerFeatures = ServerFeatures::from(&m_Packet[12], flagsLength);
-
-			if (!hadFlags) {
-				#if PACKET_BUNDLING != PACKET_BUNDLING_DISABLED
-					if (m_ServerFeatures.has(ServerFeatures::PROTOCOL_BUNDLE_SUPPORT)) {
-						m_Logger.debug("Server supports packet bundling");
-					}
-				#endif
-			}
-
-			break;
 
 		case PACKET_SAVE_CALIBRATION:
 			// Save BNO calibration
